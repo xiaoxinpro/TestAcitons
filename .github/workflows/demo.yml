@@ -43,11 +43,20 @@ jobs:
       - name: 将环境变量写入 GITHUB_ENV
         run: |
           echo "TEST_VERSION=$(cat .version)" >> $GITHUB_ENV
-          source $GITHUB_ENV
-          echo "输出定义的环境变量：${{ env.TEST_VERSION }}"
+          echo "BUILD_IMAGE=chishin/nginx-proxy-manager-zh" >> $GITHUB_ENV
+          echo "BUILD_PLATFORM=linux/amd64,linux/arm64,linux/arm/7" >> $GITHUB_ENV
+          echo "BUILD_VERSION=$(cat .version)" >> $GITHUB_ENV
+          echo "输出定义的环境变量：${{ env.TEST_VERSION }} (需要在下级才能引用环境变量)"
       - name: 打印环境变量
         run: |
           echo "打印上级定义的环境变量：${{ env.TEST_VERSION }}"
           echo "直接引用环境变量：$TEST_VERSION"
-
+      - name: 拼接环境变量 if push
+        if: ${{ github.event_name == 'push'}}
+        run: |
+          echo "BUILD_TAG=-t ${BUILD_IMAGE}:${BUILD_VERSION} -t ${BUILD_IMAGE}:dev" >> $GITHUB_ENV
+      - name: 拼接环境变量 if release
+        if: ${{ github.event_name == 'release'}}
+        run: |
+          echo "BUILD_TAG=-t ${BUILD_IMAGE}:${BUILD_VERSION} -t ${BUILD_IMAGE}:release" >> $GITHUB_ENV
       
