@@ -58,7 +58,7 @@ jobs:
       - name: 拼接环境变量 if release
         if: ${{ github.event_name == 'release'}}
         run: |
-          echo "BUILD_TAG=-t ${BUILD_IMAGE}:${BUILD_VERSION} -t ${BUILD_IMAGE}:release" >> $GITHUB_ENV
+          echo "BUILD_TAG=-t ${BUILD_IMAGE}:${BUILD_VERSION} -t ${BUILD_IMAGE}:${BUILD_VERSION%.*} -t ${BUILD_IMAGE}:${BUILD_VERSION%.*.*} -t ${BUILD_IMAGE}:release" >> $GITHUB_ENV
       - name: 输出拼接环境变量
         run: |
           echo "BUILD_TAG=$BUILD_TAG"
