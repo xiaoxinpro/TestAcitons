@@ -10,6 +10,7 @@ on:
       - 'master'
     paths: 
       - '.github/workflows/demo.yml'
+      - '*.sh'
   release:
     types: [published]
   # Allows you to run this workflow manually from the Actions tab
