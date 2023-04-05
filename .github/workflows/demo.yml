@@ -40,13 +40,13 @@ jobs:
           echo "触发分支：${{ github.ref_name}}"
           echo "触发事件：${{ github.event_name }}"
           echo "版本信息：$(cat .version)"
-      - name: run定义环境变量
+      - name: 将环境变量写入 GITHUB_ENV
         run: |
-          export TEST_VERSION=$(cat .version)
-          echo "输出定义的环境变量：$TEST_VERSION"
+          echo "TEST_VERSION=$(cat .version)" >> $GITHUB_ENV
+          echo "输出定义的环境变量：${{ env.TEST_VERSION }}"
       - name: 打印环境变量
         run: |
-          echo "打印上级定义的环境变量：$TEST_VERSION"
+          echo "打印上级定义的环境变量：${{ env.TEST_VERSION }}"
           echo "打印全部环境变量："
           env
       
