@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ "${BUILD_TAG:-0}" != 0 ]; then
-  echo "BUILD_TAG OK"
+if [ "${BUILD_IMAGE:-0}" != 0 ]; then
+  echo "BUILD_IMAGE OK"
 else
-  echo "BUILD_TAG is not found"
+  echo "BUILD_IMAGE is not found"
 fi
 
 echo "BUILD_TAG=$BUILD_TAG"
