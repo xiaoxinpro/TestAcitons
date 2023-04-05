@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "$BUILD_TAG" ]; then
+if [ "${BUILD_TAG:-0}" != 0 ]; then
   echo "BUILD_TAG OK"
 else
   echo "BUILD_TAG is not found"
