@@ -68,3 +68,7 @@ jobs:
           echo "BUILD_IMAGE=$BUILD_IMAGE"
           echo "BUILD_PLATFORM=$BUILD_PLATFORM"
           echo "BUILD_VERSION=$BUILD_VERSION"
+      - name: 执行测试脚本
+        run: |
+          chmod +x shell.sh
+          ./shell.sh
