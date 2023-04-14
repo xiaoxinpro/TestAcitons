@@ -1,0 +1,22 @@
+name: GitHub Actions Releases Test
+on:
+ workflow_dispatch:
+ push:
+  branches:
+   - 'v**'
+  release:
+    types: [published]
+jobs:
+  Releases-Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: GitHub环境变量
+        run: echo "${{ toJSON(github) }}"
+      - name: 触发信息
+        run: |
+          echo "触发分支：${{ github.ref_name}}"
+          echo "触发事件：${{ github.event_name }}"
+          echo "版本信息：$(cat .version)"
+        
