@@ -1,0 +1,25 @@
+name: Github Actions WeChat Work Push
+on: 
+  push:
+    paths: 
+      - '.github/workflows/work-wechat.yml'
+jobs:
+  Dump-Github-Context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 输出调试信息
+        run: |
+          echo 'WINSTAR_WORK_CORPID: ${{secrets.WINSTAR_WORK_CORPID}}'
+          echo 'WINSTAR_WORK_CORPSECRET: ${{secrets.WINSTAR_WORK_CORPSECRET}}'
+          echo 'WINSTAR_WORK_AGENTID: ${{secrets.WINSTAR_WORK_AGENTID}}'
+          echo 'actor: ${{ github.actor }}'          
+      - name: 企业微信应用消息发送
+        uses: wertycn/work-wechat-send-action@main
+        with:
+          wechat_id: ${{secrets.WINSTAR_WORK_CORPID}}
+          agent_secret: ${{secrets.WINSTAR_WORK_CORPSECRET}}
+          agent_id: ${{secrets.WINSTAR_WORK_AGENTID}}
+          to_user: ${{ github.actor }}
+          msgtype: markdown
+          send_step: main
+          content: "### 自动化运行完成\n工作流**${{ github.workflow }}**运行完成：[${{ github.event.repository.full_name }}](${{ github.event.repository.html_url }})" 
