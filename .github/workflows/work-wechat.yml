@@ -19,7 +19,7 @@ jobs:
           wechat_id: ${{secrets.WINSTAR_WORK_CORPID}}
           agent_secret: ${{secrets.WINSTAR_WORK_CORPSECRET}}
           agent_id: ${{secrets.WINSTAR_WORK_AGENTID}}
-          to_user: ${{ github.actor }}
+          to_user: zhangxr
           msgtype: markdown
           send_step: main
           content: "### 自动化运行完成\n工作流**${{ github.workflow }}**运行完成：[${{ github.event.repository.full_name }}](${{ github.event.repository.html_url }})" 
